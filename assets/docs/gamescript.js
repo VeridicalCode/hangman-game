@@ -14,9 +14,9 @@
 var activeGame = false; // tells the page when to start listening to keypresses
 var currentWord; // current word
 var currentWordArray; // changes from _ _ _ to _ x _ as player makes guesses
-var tentacleLetters = 0; // at 8 the player gets eaten
-var tentacleLettersArray = [' ']; // holds bad guesses for display. leave the space there, it freaks out if it tries to concat with no content
-var playerGuess; // current letter being guessed by player
+var tentacleLetters; // at 8 the player gets eaten
+var tentacleLettersArray =[' ']; // holds bad guesses for display. leave the space there, it freaks out if it tries to concat with no content
+var lettersToWin; // how many blank spaces to fill before victory
 var easyWords = [ // array: easy words
   "breakwater",
   "coral",
@@ -75,6 +75,8 @@ function isLetter(str) {
 pickRandomWord = function (diffSetting) {
   activeGame = true; // tell the page the game is active
   currentWordArray = []; // zero out the display word
+  tentacleLettersArray =[' '] // zero out the bad guesses
+  tentacleLetters = 0; // zero out the fails
   if (diffSetting == 'easy') {
     currentWord = easyWords[Math.floor(Math.random() * easyWords.length)];
   }
@@ -85,6 +87,8 @@ pickRandomWord = function (diffSetting) {
   for (i = 0; i < currentWord.length; i++) {
     currentWordArray[i] = "_"
   };
+  // set the victory condition
+  lettersToWin = currentWord.length;
   // finally, print the correct empty spaces to the screen
   displayCurrentWord()  
 }
@@ -107,6 +111,7 @@ document.onkeyup = function (event) {
     if (playerGuess.toLowerCase() == currentWord[j]){
       currentWordArray[j] = playerGuess.toLocaleLowerCase();
       goodGuess = true;
+      lettersToWin--;
     }
   };
   // if we didn't match any letters, iterate tentacles & add bad guess to array
@@ -116,7 +121,11 @@ document.onkeyup = function (event) {
   }
   // now refresh the display
   displayCurrentWord();
-  /*debugging: just to see if this is working, we'll print all guesses to tentacleLetters
-  tentacleLettersArray.push(playerGuess);
-  displayCurrentWord(); */
+
+  if (lettersToWin == 0){
+    alert("You win!");
+  }
+  if (tentacleLetters >= 8){
+    alert("You lose.");
+  }
 }
