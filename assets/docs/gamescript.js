@@ -11,10 +11,11 @@
 */
 
 // establish variables
+var activeGame = false; // tells the page when to start listening to keypresses
 var currentWord; // current word
 var currentWordArray; // changes from _ _ _ to _ x _ as player makes guesses
 var tentacleLetters = 0; // at 8 the player gets eaten
-var tentacleLettersArray = []; // holds bad guesses for display
+var tentacleLettersArray = [' ']; // holds bad guesses for display. leave the space there, it freaks out if it tries to concat with no content
 var playerGuess; // current letter being guessed by player
 var easyWords = [ // array: easy words
   "breakwater",
@@ -55,13 +56,9 @@ var hardWords = [ // array: difficult words
   "tsunami",
   "zooplankton"
 ];
-
-// for test purposes
-tentacleLetters = 4;
-tentacleLettersArray = ['x', 't', 'q'];
-
 // we'll be calling this in several places so just function it for convenience
 displayCurrentWord = function(){
+  // change the text content of selected divs to the stringed contents of each array
   $('#currentWordDiv').text(currentWordArray.join(' '));
   $('#tentacleLettersDiv').text(tentacleLettersArray.join(' '));
   // and log the thing to console for debugging purposes
@@ -69,9 +66,15 @@ displayCurrentWord = function(){
   console.log(tentacleLetters + " " + tentacleLettersArray.join(' '));
 }
 
-// randomly generate a word from the appropriate array
+// for sanity, a function to make sure (keyboard) input is a letter
+function isLetter(str) {
+  return /^[a-zA-Z]+$/.test(str);
+}
+
+// START GAME: randomly generate a word from the appropriate array
 pickRandomWord = function (diffSetting) {
-  currentWordArray = [];
+  activeGame = true; // tell the page the game is active
+  currentWordArray = []; // zero out the display word
   if (diffSetting == 'easy') {
     currentWord = easyWords[Math.floor(Math.random() * easyWords.length)];
   }
@@ -86,3 +89,34 @@ pickRandomWord = function (diffSetting) {
   displayCurrentWord()  
 }
 
+// okay here's the fun part. look for player keypress
+document.onkeyup = function (event) {
+  // store keyboard input as a variable
+  let playerGuess = event.key;
+  let goodGuess = false; // assume guess was wrong
+
+  // if the game's not running or the key's not a valid letter, stop here
+  if (!activeGame || !isLetter(playerGuess)){
+    return;
+  } //*/
+
+  // now, for each letter in currentWord
+  for (j = 0; j < currentWord.length; j++){
+    // if the pressed letter matches, change the guess array
+    // force case for safety
+    if (playerGuess.toLowerCase() == currentWord[j]){
+      currentWordArray[j] = playerGuess.toLocaleLowerCase();
+      goodGuess = true;
+    }
+  };
+  // if we didn't match any letters, iterate tentacles & add bad guess to array
+  if (j >= currentWord.length && !goodGuess){
+    tentacleLetters++;
+    tentacleLettersArray.push(playerGuess.toUpperCase());
+  }
+  // now refresh the display
+  displayCurrentWord();
+  /*debugging: just to see if this is working, we'll print all guesses to tentacleLetters
+  tentacleLettersArray.push(playerGuess);
+  displayCurrentWord(); */
+}
