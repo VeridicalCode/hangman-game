@@ -24,7 +24,7 @@ var easyWords = [ // array: easy words
   "treasure",
   "hurricane",
   "lighthouse",
-  "lobster", 
+  "lobster",
   "dolphin",
   "manatee",
   "manta",
@@ -45,7 +45,7 @@ var hardWords = [ // array: difficult words
   "echinoderm",
   "egret",
   "estuary",
-  "floresence",
+  "fluorescence",
   "guyot",
   "invertebrate",
   "leviathan",
@@ -56,6 +56,19 @@ var hardWords = [ // array: difficult words
   "zooplankton"
 ];
 
+// for test purposes
+tentacleLetters = 4;
+tentacleLettersArray = ['x', 't', 'q'];
+
+// we'll be calling this in several places so just function it for convenience
+displayCurrentWord = function(){
+  $('#currentWordDiv').text(currentWordArray.join(' '));
+  $('#tentacleLettersDiv').text(tentacleLettersArray.join(' '));
+  // and log the thing to console for debugging purposes
+  console.log(currentWord + " " + currentWordArray.join(' '));
+  console.log(tentacleLetters + " " + tentacleLettersArray.join(' '));
+}
+
 // randomly generate a word from the appropriate array
 pickRandomWord = function (diffSetting) {
   currentWordArray = [];
@@ -65,14 +78,11 @@ pickRandomWord = function (diffSetting) {
   else {
     currentWord = hardWords[Math.floor(Math.random() * hardWords.length)];
   };
-  // display the correct number of blank spaces
+  // store the correct number of blank spaces
   for (i = 0; i < currentWord.length; i++) {
     currentWordArray[i] = "_"
   };
-  console.log(currentWord + " " + currentWordArray);
- }
- 
-// $.each(unguessedArray, function(index, value){
-//   $('#displayGuessDiv').html( $('#displayGuessDiv').html() + " " + unguessedArray[i])
-// }
+  // finally, print the correct empty spaces to the screen
+  displayCurrentWord()  
+}
 
