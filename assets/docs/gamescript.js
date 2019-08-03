@@ -1,12 +1,23 @@
 
 /*
   For consistency we're going to figure out all our variables & their variations right here.
-  currentWord: the random word for this game, chosen at start
-    currentWordKnown: a string of what the player knows (blanks & letters)
+  currentWord: the random word for a given game, chosen at start
+    currentWordArray: a string of what the player knows (blanks & letters)
     currentWordDiv: the div that displays all this
   tentacleLetters: the number of bad letters (which generate tentacles)
     tentacleLettersArray: a collection of those guesses
     tentacleLettersDiv: displays bad guesses to the player
+
+*/
+/*
+  things to do still: 
+  better win/loss alerts
+  add a tiny scuba diver & eat him on loss
+  fix formatting -
+    - text boxes? something that doesn't fill the screen
+    - make that <p> tag a better span
+    - maybe jumbotron the title?
+    - i don't really care for the background either tbh
 
 */
 

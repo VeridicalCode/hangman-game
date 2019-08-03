@@ -1,4 +1,9 @@
 
+body {
+    background-image: url("../images/backgroundWater.png");
+    background-size: 100vw;
+}
+
 #krakenDiv{
     position: fixed;
     bottom: 0;
