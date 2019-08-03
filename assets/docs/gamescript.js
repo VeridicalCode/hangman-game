@@ -147,10 +147,12 @@ document.onkeyup = function (event) {
     alert("You win!");
     $('#krakenDiv').hide(3000);
     $('#buttonTrayDiv').show();
+    activeGame = false;
   }
 
   if (tentacleLetters >= 8){
     alert("You lose.");
     $('#buttonTrayDiv').show();
+    activeGame = false;
   }
 }
