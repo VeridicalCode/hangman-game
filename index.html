@@ -22,13 +22,19 @@
     all eight, it will consume you!
   </p>
 
-  <div id="buttonTrayDiv" style="text-align: center">
-    <button type="button" onclick="pickRandomWord('easy')" class="btn btn-success">new easy game</button> <button
-      type="button" onclick="pickRandomWord('hard')" class="btn btn-success">new hard game</button>
+  <div class="row">
+    <div id="buttonTrayDiv" class="col">
+      <button type="button" onclick="pickRandomWord('easy')" class="btn btn-success">new easy game</button> <button
+        type="button" onclick="pickRandomWord('hard')" class="btn btn-success">new hard game</button>
+    </div>
   </div>
-  <div id="currentWordDiv" style="text-align: center"></div>
-  <div id="tentacleLettersDiv" style="text-align: center"></div>
-
+  <div id="currentWordDiv" class="col-12"></div>
+  <div id="tentacleLettersDiv" class="col-12"></div>
+  <div class="row">
+    <div id="krakenDiv" class="col">
+      <img src="./assets/images/kraken-07.gif" alt="Behold, the Kraken!" class="img-fluid"/>
+    </div>
+  </div>
 </body>
 
 <!-- two source scripts, jQuery cdn and local game file -->
