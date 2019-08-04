@@ -62,7 +62,7 @@ displayCurrentWord = function () {
   // change the text content of selected divs to the stringed contents of each array
   $('#currentWordDiv').text(currentWordArray.join(' '));
   $('#tentacleLettersDiv').text(tentacleLettersArray.join(' '));
-  $('#currentWordDiv, #tentacleLettersDiv').show();
+  $('.wordbox').show();
   // and log the thing to console for debugging purposes
   console.log(currentWord + " " + currentWordArray.join(' '));
   console.log(tentacleLetters + " " + tentacleLettersArray.join(' '));
@@ -86,7 +86,7 @@ pickRandomWord = function (diffSetting) {
   tentacleLettersArray = [' '] // zero out the bad guesses
   tentacleLetters = 0; // zero out the fails
   $('#krakenDiv').html(krakenArray[0]).show(); // reset the kraken
-  $('#buttonTrayDiv').hide(); // hide the new game buttons
+  $('#buttonTrayDiv, #hideThisDiv').hide(); // hide the new game buttons
 
   // pick the word based on the difficulty setting
   if (diffSetting == 'easy') {
@@ -141,15 +141,15 @@ document.onkeyup = function (event) {
 
   if (lettersToWin == 0) {
     $('#krakenDiv').hide(6000);
-    $('#buttonTrayDiv').show();
-    $('#currentWordDiv, #tentacleLettersDiv').hide();
+    $('#buttonTrayDiv, #hideThisDiv').show();
+    $('.wordbox').hide();
     alert("You win!");
     activeGame = false;
   }
 
   if (tentacleLetters >= 8) {
-    $('#buttonTrayDiv').show();
-    $('#currentWordDiv, #tentacleLettersDiv').hide();
+    $('#buttonTrayDiv, #hideThisDiv').show();
+    $('.wordbox').hide();
     alert("You lose. The word was " + currentWord);
     activeGame = false;
   }

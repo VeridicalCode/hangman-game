@@ -16,23 +16,31 @@
 </head>
 
 <body>
-  <h1>Fear the deeps!</h1>
-  <p>Pick your difficulty to begin, then use your keyboard to try to guess the letters in the hidden word. Complete the
-    word to win, but beware the Kraken! Each wrong guess will restore one of its missing tentacles, and if it regains
-    all seven, its next act will be to consume you!
-  </p>
-
-  <div class="row">
-    <div id="buttonTrayDiv" class="col">
-      <button type="button" onclick="pickRandomWord('easy')" class="btn btn-success">new easy game</button> <button
-        type="button" onclick="pickRandomWord('hard')" class="btn btn-success">new hard game</button>
+  <div class="container">
+    <h1 class="header"><strong>Thalassophobia:</strong> fear the deeps!</h1>
+    <p id='hideThisDiv'>Pick your difficulty to begin, then use your keyboard to try to guess the letters in the hidden word. Complete the word to win, but beware the Kraken! Each wrong guess will restore one of its missing tentacles, and if it regains all seven, its next act will be to consume you!
+    </p>
+    <div class="row justify-content-md-center">
+      <div id="buttonTrayDiv" class="col">
+        <button type="button" onclick="pickRandomWord('easy')" class="btn btn-success">new easy game</button> <button
+          type="button" onclick="pickRandomWord('hard')" class="btn btn-success">new hard game</button>
+      </div>
     </div>
   </div>
-  <div id="currentWordDiv"></div>
-  <div id="tentacleLettersDiv"></div>
+  <div class="container wordbox">
+    <div class="row justify-content-md-center">
+      <div id="currentWordDiv"></div>
+    </div>
+    <div class="row justify-content-md-center">
+      <div><strong>Invalid letters:</strong></div>
+    </div>
+    <div class="row justify-content-md-center">
+      <div id="tentacleLettersDiv"></div>
+    </div>
+  </div>
   <div class="row">
     <div id="krakenDiv" class="col">
-      <img src="./assets/images/kraken-00.gif" alt="Behold, the Kraken!" class="img-fluid"/>
+      <img src="./assets/images/kraken-00.gif" alt="Behold, the Kraken!" class="img-fluid" />
     </div>
   </div>
 </body>
