@@ -145,14 +145,16 @@ $(document).ready(function () {
       $('#krakenDiv').hide(6000);
       $('#buttonTrayDiv, #hideThisDiv').show();
       $('.wordbox').hide();
-      alert("You win!");
+      // alert("You win!");
+      $.MessageBox("You win! Congratulations!");
       activeGame = false;
     }
 
     if (tentacleLetters >= 8) {
       $('#buttonTrayDiv, #hideThisDiv').show();
       $('.wordbox').hide();
-      alert("You lose. The word was " + currentWord);
+      // alert("You lose. The word was " + currentWord);
+      $.MessageBox("You lose. The word was" + currentWord);
       activeGame = false;
     }
   }
