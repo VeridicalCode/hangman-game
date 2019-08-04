@@ -2,11 +2,13 @@
 body {
     background-image: url("../images/backgroundWater.png");
     background-size: 100vw;
+    overflow-x: none;
 }
 
 #krakenDiv{
     position: fixed;
     bottom: 0;
+    z-index: 0;
 }
 
 #krakenDiv, #buttonTrayDiv, #currentWordDiv, #tentacleLettersDiv{
@@ -17,6 +19,9 @@ body {
     background-color: white;
     font-size: 1.5em;
     font-family: "Arial Black", Gadget, sans-serif;
+    display: none;
+    position: relative;
+    z-index: 2;
 }
 
 #currentWordDiv{
