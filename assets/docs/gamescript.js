@@ -9,17 +9,6 @@
     tentacleLettersDiv: displays bad guesses to the player
 
 */
-/*
-  things to do still: 
-  better win/loss alerts
-  add a tiny scuba diver & eat him on loss
-  fix formatting -
-    - text boxes? something that doesn't fill the screen
-    - make that <p> tag a better span
-    - maybe jumbotron the title?
-    - i don't really care for the background either tbh
-
-*/
 
 // establish variables
 var activeGame = false; // tells the page when to start listening to keypresses
@@ -89,8 +78,14 @@ displayCurrentWord = function(){
 }
 
 // for sanity, a function to make sure (keyboard) input is a letter
-function isLetter(str) {
-  return /^[a-zA-Z]+$/.test(str);
+function isLetter(txt){
+  if(txt.toUpperCase() != txt.toLowerCase() && // not a number
+    txt[1] == undefined){  // not longer than 1 character (backspace, shift)
+    return true;
+ }
+   else{
+     return false;
+     }
 }
 
 // START GAME
@@ -128,6 +123,7 @@ document.onkeyup = function (event) {
 
   // if the game's not running or the key's not a valid letter, stop here
   if (!activeGame || !isLetter(playerGuess)){
+    console.log('error check: active game status is ' + activeGame +" and isLetter returned "+ isLetter(playerGuess));
     return;
   };
 
@@ -149,7 +145,6 @@ document.onkeyup = function (event) {
     tentacleLetters++;
     tentacleLettersArray.push(playerGuess.toUpperCase());
     $('#krakenDiv').html(krakenArray[tentacleLetters]);
-    console.log(krakenArray[tentacleLetters]);
   };
   // now refresh the display
   displayCurrentWord();
