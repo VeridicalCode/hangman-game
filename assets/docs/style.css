@@ -52,7 +52,7 @@ header{
 }
 /* 
     shenannigans to prevent screen from rotating on mobile, because aint nobody got time to make
-    an entire separate gifset to look good in landscape mode
+    an entire separate gifset to look good in landscape mode */
 @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
     html {
       transform: rotate(-90deg);
@@ -63,4 +63,4 @@ header{
       top: 100%;
       left: 0;
     }
-  } */
+  }
