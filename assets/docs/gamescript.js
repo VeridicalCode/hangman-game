@@ -68,10 +68,6 @@ $(document).ready(function () {
     // and log the thing to console for debugging purposes
     console.log(currentWord + " " + currentWordArray.join(' '));
     console.log(tentacleLetters + " " + tentacleLettersArray.join(' '));
-    // an attempt at mobile compatibility
-    if ($(window).width() <= 767){
-      prompt();
-    }
   }
 
   // for sanity, a function to make sure (keyboard) input is a letter
