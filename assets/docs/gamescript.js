@@ -60,11 +60,18 @@ $(document).ready(function () {
   ];
 
   // we'll be calling this in several places so just function it for convenience
-  displayCurrentWord = function () {
+  displayCurrentWord = function() {
     // change the text content of selected divs to the stringed contents of each array
     $('#currentWordDiv').text(currentWordArray.join(' '));
     $('#tentacleLettersDiv').text(tentacleLettersArray.join(' '));
     $('.wordbox').show();
+  }
+
+  // reset page to base status after game ends
+  resetPageToStart = function(){
+    activeGame = false; // stop listening to keyboard
+    $('#buttonTrayDiv, #hideThisDiv').show(); //put instructions & buttons back
+    $('.wordbox').hide(); // hide word arrays
   }
 
   // for sanity, a function to make sure (keyboard) input is a letter
@@ -115,7 +122,8 @@ $(document).ready(function () {
     if (!activeGame || !isLetter(playerGuess)) {
       return;
     };
-
+    // bugproof in case player hit new game too soon
+    $('#krakenDiv').show();
     // now, for each letter in currentWord
     for (j = 0; j < currentWord.length; j++) {
       // force case for safety
@@ -149,17 +157,20 @@ $(document).ready(function () {
 
     if (lettersToWin == 0) {
       $('#krakenDiv').hide(6000); // kraken fades slowly offscreen
-      $('#buttonTrayDiv, #hideThisDiv').show(); //put instructions & buttons back
-      $('.wordbox').hide(); // hide word arrays
       $.MessageBox("You win! Congratulations!"); // announce win
-      activeGame = false; // stop listening to keyboard
+      resetPageToStart(); // stop listening to keyboard and restore instructions/buttons
+      
     }
 
     if (tentacleLetters >= 8) {
-      $('#buttonTrayDiv, #hideThisDiv').show(); // put instructions & buttons back
-      $('.wordbox').hide(); // hide word arrays
       $.MessageBox('You lose. The word was "' + currentWord +'."'); // announce loss & tell player word
-      activeGame = false; // stop listening to keyboard
+      resetPageToStart(); // stop listening to keyboard and restore instructions/buttons
     }
   }
+  /* if the game's over and the kraken's no longer dissolving
+  // (animation check is important to prevent bugging out of #krakenDiv reset)
+  if (! $.timers.length && activeGame == false) {
+    resetPageToStart();
+  } */
+
 });

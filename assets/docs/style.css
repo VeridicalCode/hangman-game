@@ -22,7 +22,6 @@ header{
     position: fixed;
     text-align: center;
     bottom: 0;
-    z-index: 0;
 }
 
 #currentWordDiv, #tentacleLettersDiv{
@@ -43,7 +42,6 @@ header{
 .wordbox{
     display: none;
     position: relative;
-    z-index: 2;
 }
 
 .custom_messagebox_overlay{
