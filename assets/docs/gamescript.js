@@ -49,14 +49,14 @@ $(document).ready(function () {
     "zooplankton"
   ];
   var krakenArray = [ // kraken images, stored for ease of replacement
-    '<img src="./assets/images/kraken-00.gif" alt="Behold, the Kraken!" class="img-fluid"/>',
-    '<img src="./assets/images/kraken-01.gif" alt="Behold, the Kraken!" class="img-fluid"/>',
-    '<img src="./assets/images/kraken-02.gif" alt="Behold, the Kraken!" class="img-fluid"/>',
-    '<img src="./assets/images/kraken-03.gif" alt="Behold, the Kraken!" class="img-fluid"/>',
-    '<img src="./assets/images/kraken-04.gif" alt="Behold, the Kraken!" class="img-fluid"/>',
-    '<img src="./assets/images/kraken-05.gif" alt="Behold, the Kraken!" class="img-fluid"/>',
-    '<img src="./assets/images/kraken-06.gif" alt="Behold, the Kraken!" class="img-fluid"/>',
-    '<img src="./assets/images/kraken-07.gif" alt="Behold, the Kraken!" class="img-fluid"/>'
+    '<img src="./assets/images/kraken-00.gif" alt="The Kraken slumbers." class="img-fluid"/>',
+    '<img src="./assets/images/kraken-01.gif" alt="A single dark tentacle rises slowly through the murk." class="img-fluid"/>',
+    '<img src="./assets/images/kraken-02.gif" alt="A second oily tentacle sprouts beneath the waves." class="img-fluid"/>',
+    '<img src="./assets/images/kraken-03.gif" alt="Three reaching tentacles slither the deep water." class="img-fluid"/>',
+    '<img src="./assets/images/kraken-04.gif" alt="Four tentacles push slimy ripples through the ocean." class="img-fluid"/>',
+    '<img src="./assets/images/kraken-05.gif" alt="The Kraken\'s fifth tentacle gropes for prey!" class="img-fluid"/>',
+    '<img src="./assets/images/kraken-06.gif" alt="Six horrific tentacles lash furiously!" class="img-fluid"/>',
+    '<img src="./assets/images/kraken-07.gif" alt="The Kraken is whole and prepared to consume!" class="img-fluid"/>'
   ];
 
   // we'll be calling this in several places so just function it for convenience
@@ -65,9 +65,6 @@ $(document).ready(function () {
     $('#currentWordDiv').text(currentWordArray.join(' '));
     $('#tentacleLettersDiv').text(tentacleLettersArray.join(' '));
     $('.wordbox').show();
-    // and log the thing to console for debugging purposes
-    console.log(currentWord + " " + currentWordArray.join(' '));
-    console.log(tentacleLetters + " " + tentacleLettersArray.join(' '));
   }
 
   // for sanity, a function to make sure (keyboard) input is a letter
@@ -112,10 +109,10 @@ $(document).ready(function () {
     // store keyboard input as a variable
     let playerGuess = event.key;
     let goodGuess = false; // assume guess was wrong
+    let badGuess = false; // also assume the player hasn't tried this letter yet
 
     // if the game's not running or the key's not a valid letter, stop here
     if (!activeGame || !isLetter(playerGuess)) {
-      console.log('error check: active game status is ' + activeGame + " and isLetter returned " + isLetter(playerGuess));
       return;
     };
 
@@ -132,8 +129,17 @@ $(document).ready(function () {
         lettersToWin--;
       };
     };
-    // if we didn't match any letters, iterate tentacles, add bad guess to array, grab new kraken image
-    if (j >= currentWord.length && !goodGuess) {
+    // also check against existing bad guesses
+    for (k = 0; k < tentacleLettersArray.length; k++) {
+      // force case for safety; this time to upper, since that's how we're storing fails
+      if (playerGuess.toUpperCase() == tentacleLettersArray[k]) {
+        badGuess = true; // if letter is already guessed, let the tentacle function know to skip it
+        return; // and don't bother checking further
+      }
+    };
+
+    // if we didn't match any letters to either array, iterate tentacles, add bad guess to array, grab new kraken image
+    if (j >= currentWord.length && k >= tentacleLettersArray.length && !goodGuess && !badGuess) {
       tentacleLetters++;
       tentacleLettersArray.push(playerGuess.toUpperCase());
       $('#krakenDiv').html(krakenArray[tentacleLetters]);
@@ -142,20 +148,18 @@ $(document).ready(function () {
     displayCurrentWord();
 
     if (lettersToWin == 0) {
-      $('#krakenDiv').hide(6000);
-      $('#buttonTrayDiv, #hideThisDiv').show();
-      $('.wordbox').hide();
-      // alert("You win!");
-      $.MessageBox("You win! Congratulations!");
-      activeGame = false;
+      $('#krakenDiv').hide(6000); // kraken fades slowly offscreen
+      $('#buttonTrayDiv, #hideThisDiv').show(); //put instructions & buttons back
+      $('.wordbox').hide(); // hide word arrays
+      $.MessageBox("You win! Congratulations!"); // announce win
+      activeGame = false; // stop listening to keyboard
     }
 
     if (tentacleLetters >= 8) {
-      $('#buttonTrayDiv, #hideThisDiv').show();
-      $('.wordbox').hide();
-      // alert("You lose. The word was " + currentWord);
-      $.MessageBox('You lose. The word was "' + currentWord +'."');
-      activeGame = false;
+      $('#buttonTrayDiv, #hideThisDiv').show(); // put instructions & buttons back
+      $('.wordbox').hide(); // hide word arrays
+      $.MessageBox('You lose. The word was "' + currentWord +'."'); // announce loss & tell player word
+      activeGame = false; // stop listening to keyboard
     }
   }
 });
