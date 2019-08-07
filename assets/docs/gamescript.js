@@ -154,7 +154,7 @@ $(document).ready(function () {
       $('#buttonTrayDiv, #hideThisDiv').show();
       $('.wordbox').hide();
       // alert("You lose. The word was " + currentWord);
-      $.MessageBox("You lose. The word was" + currentWord);
+      $.MessageBox('You lose. The word was "' + currentWord +'."');
       activeGame = false;
     }
   }

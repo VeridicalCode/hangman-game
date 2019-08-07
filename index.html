@@ -11,25 +11,36 @@
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="./assets/docs/style.css">
   <!-- jquery messagebox plugin -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-message-box@3.1.0/dist/messagebox.min.css">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-message-box@3.1.0/dist/messagebox.min.css">
 
   <title>Thalassophobia</title>
 
 </head>
 
 <body>
+
+  <div class="row">
+    <!--this is the bottom of the page but we put it first for zindex purposes-->
+    <div id="krakenDiv" class="col">
+      <img src="./assets/images/kraken-00.gif" alt="Behold, the Kraken!" class="img-fluid" />
+    </div>
+  </div>
   <div class="container">
     <h1 class="header"><strong>Thalassophobia:</strong> fear the deeps!</h1>
-    <p id='hideThisDiv'>Pick your difficulty to begin, then use your keyboard to try to guess the letters in the hidden word. Complete the word to win, but beware the Kraken! Each wrong guess will restore one of its missing tentacles, and if it regains all seven, its next act will be to consume you!
-    </p>
+    <p id='hideThisDiv'>Pick your difficulty to begin, then use your keyboard to try to guess the letters in the hidden
+      word. Complete the word to win, but beware the Kraken! Each wrong guess will restore one of its missing tentacles,
+      and if it regains all seven, its next act will be to consume you!
+    </p> <!--hideThisDiv tag to hide when game is active-->
     <div class="row justify-content-md-center">
       <div id="buttonTrayDiv" class="col">
         <button type="button" onclick="pickRandomWord('easy')" class="btn btn-success">new easy game</button> <button
           type="button" onclick="pickRandomWord('hard')" class="btn btn-success">new hard game</button>
-      </div>
+      </div> <!--buttons to select game difficutly, hidden while game is active-->
     </div>
   </div>
   <div class="container wordbox">
+    <!--holds current word as it's being guessed, & tracks wrong guesses-->
     <div class="row justify-content-md-center">
       <div id="currentWordDiv"></div>
     </div>
@@ -37,12 +48,7 @@
       <div><strong>Invalid letters:</strong></div>
     </div>
     <div class="row justify-content-md-center">
-      <div id="tentacleLettersDiv"></div>
-    </div>
-  </div>
-  <div class="row">
-    <div id="krakenDiv" class="col">
-      <img src="./assets/images/kraken-00.gif" alt="Behold, the Kraken!" class="img-fluid" />
+      <div id="tentacleLettersDiv"></div> <!--missed letters, which generate tentacles-->
     </div>
   </div>
 </body>

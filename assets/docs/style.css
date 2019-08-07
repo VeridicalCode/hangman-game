@@ -15,6 +15,7 @@ header{
 
 #buttonTrayDiv{
     text-align: center;
+    position: relative;
 }
 
 #krakenDiv{
@@ -43,6 +44,11 @@ header{
     display: none;
     position: relative;
     z-index: 2;
+}
+
+.custom_messagebox_overlay{
+    z-index: 3;
+    position: relative;
 }
 
 @media screen and (max-width: 767px){
