@@ -122,8 +122,6 @@ $(document).ready(function () {
     if (!activeGame || !isLetter(playerGuess)) {
       return;
     };
-    // bugproof in case player hit new game too soon
-    $('#krakenDiv').show();
     // now, for each letter in currentWord
     for (j = 0; j < currentWord.length; j++) {
       // force case for safety
@@ -157,9 +155,11 @@ $(document).ready(function () {
 
     if (lettersToWin == 0) {
       $('#krakenDiv').hide(6000); // kraken fades slowly offscreen
-      $.MessageBox("You win! Congratulations!"); // announce win
-      resetPageToStart(); // stop listening to keyboard and restore instructions/buttons
-      
+	  $.MessageBox("You win! Congratulations!"); // announce win
+      setTimeout(resetPageToStart, 6000); // stop listening to keyboard and restore instructions/buttons
+      /* noteworthy here that without the setTimeout, it's possible to start
+	  // a new game while the kraken is still dissolving. this prevents a new kraken
+	  // from spawning properly and should be avoided. */
     }
 
     if (tentacleLetters >= 8) {
@@ -167,10 +167,5 @@ $(document).ready(function () {
       resetPageToStart(); // stop listening to keyboard and restore instructions/buttons
     }
   }
-  /* if the game's over and the kraken's no longer dissolving
-  // (animation check is important to prevent bugging out of #krakenDiv reset)
-  if (! $.timers.length && activeGame == false) {
-    resetPageToStart();
-  } */
 
 });
