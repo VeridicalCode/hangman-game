@@ -39,6 +39,9 @@ header{
     margin-top: 0.5em;
 }
 
+#keyboardHook4Mobile{
+    display: none;
+}
 .wordbox{
     display: none;
     position: relative;

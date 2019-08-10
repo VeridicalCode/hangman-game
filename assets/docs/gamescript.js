@@ -65,6 +65,10 @@ $(document).ready(function () {
     $('#currentWordDiv').text(currentWordArray.join(' '));
     $('#tentacleLettersDiv').text(tentacleLettersArray.join(' '));
     $('.wordbox').show();
+    // bring up the keyboard for mobile users
+    if (window.matchMedia('(max-width: 767px)').matches) {
+      $('#keyboardHook4Mobile').focus();
+    }
   }
 
   // reset page to base status after game ends
