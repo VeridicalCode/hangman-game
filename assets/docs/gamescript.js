@@ -162,8 +162,8 @@ $(document).ready(function () {
 	  $.MessageBox("You win! Congratulations!"); // announce win
       setTimeout(resetPageToStart, 6000); // stop listening to keyboard and restore instructions/buttons
       /* noteworthy here that without the setTimeout, it's possible to start
-	  // a new game while the kraken is still dissolving. this prevents a new kraken
-	  // from spawning properly and should be avoided. */
+	      a new game while the kraken is still dissolving. this prevents a new kraken
+	      from spawning properly and should be avoided. */
     }
 
     if (tentacleLetters >= 8) {
