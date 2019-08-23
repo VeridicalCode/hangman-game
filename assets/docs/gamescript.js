@@ -66,10 +66,10 @@ $(document).ready(function () {
     $('#tentacleLettersDiv').text(tentacleLettersArray.join(' '));
     $('.wordbox').show();
     // bring up the keyboard for mobile users
-    if (window.matchMedia('(max-width: 767px)').matches) {
+    //if (window.matchMedia('(max-width: 767px)').matches) {
       $('#keyboardHook4Mobile').focus();
       $('.header').css('color', '#00F');
-    }
+    //}
   }
 
   // reset page to base status after game ends
