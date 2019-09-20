@@ -1,6 +1,5 @@
 
 
-$(document).ready(function () {
 
   // establish variables
   var activeGame = false; // tells the page when to start listening to keypresses
@@ -59,35 +58,49 @@ $(document).ready(function () {
     '<img src="./assets/images/kraken-07.gif" alt="The Kraken is whole and prepared to consume!" class="img-fluid"/>'
   ];
 
-  // we'll be calling this in several places so just function it for convenience
-  displayCurrentWord = function() {
+  // function to print current word as correct guesses & blank spaces
+  displayCurrentWord = function () {
     // change the text content of selected divs to the stringed contents of each array
     $('#currentWordDiv').text(currentWordArray.join(' '));
-    $('#tentacleLettersDiv').text(tentacleLettersArray.join(' '));
+    // $('#tentacleLettersDiv').text(tentacleLettersArray.join(' '));
     $('.wordbox').show();
-    // bring up the keyboard for mobile users
-    //if (window.matchMedia('(max-width: 767px)').matches) {
-      $('#keyboardHook4Mobile').focus();
-      $('.header').css('color', '#00F');
-    //}
   }
 
   // reset page to base status after game ends
-  resetPageToStart = function(){
+  resetPageToStart = function () {
     activeGame = false; // stop listening to keyboard
     $('#buttonTrayDiv, #hideThisDiv').show(); //put instructions & buttons back
     $('.wordbox').hide(); // hide word arrays
   }
 
   // for sanity, a function to make sure (keyboard) input is a letter
-  function isLetter(txt) {
+  isLetter = function(txt) {
     if (txt.toUpperCase() != txt.toLowerCase() && // not a number
-      txt[1] == undefined) {  // not longer than 1 character ('backspace', 'shift')
+      txt[1] == undefined) {  // not longer than 1 character (named keys render as 'backspace' 'shift' etc)
       return true;
     }
     else {
       return false;
     }
+  }
+
+  // function to create alphabet buttons
+  makeKeyboardColumn = function () {
+    $('#letterKeyAnchor').empty(); // clear tray first
+    for (let i = 65; i < 91; i++) {
+      let letterVar = String.fromCharCode(i);
+      let letterButton = $('<button>');
+      letterButton.attr('id', letterVar)
+                  .addClass("letterKey")
+                  .txt(letterVar);
+      $('#letterKeyAnchor').append(letterButton);
+    }
+  }
+
+  // function to remove alphabet button when guessed
+  removeLetterButton = function(letterID){
+    let IDtoRemove = '#'+letterID;
+    $(IDtoRemove).remove();
   }
 
   // START GAME
@@ -98,6 +111,7 @@ $(document).ready(function () {
     tentacleLetters = 0; // zero out the fails
     $('#krakenDiv').html(krakenArray[0]).show(); // reset the kraken
     $('#buttonTrayDiv, #hideThisDiv').hide(); // hide the new game buttons
+    makeKeyboardColumn(); // print a keyboard for mobile users
 
     // pick the word based on the difficulty setting
     if (diffSetting == 'easy') {
@@ -116,17 +130,12 @@ $(document).ready(function () {
     displayCurrentWord()
   }
 
-  // okay here's the fun part. look for player keypress
-  document.onkeyup = function (event) {
-    // store keyboard input as a variable
-    let playerGuess = event.key;
+  // the meat of the game: process the player input and respond appropriately
+  checkPlayerGuess = function (playerGuess) {
+
     let goodGuess = false; // assume guess was wrong
     let badGuess = false; // also assume the player hasn't tried this letter yet
 
-    // if the game's not running or the key's not a valid letter, stop here
-    if (!activeGame || !isLetter(playerGuess)) {
-      return;
-    };
     // now, for each letter in currentWord
     for (j = 0; j < currentWord.length; j++) {
       // force case for safety
@@ -160,7 +169,7 @@ $(document).ready(function () {
 
     if (lettersToWin == 0) {
       $('#krakenDiv').hide(6000); // kraken fades slowly offscreen
-	  $.MessageBox("You win! Congratulations!"); // announce win
+      $.MessageBox("You win! Congratulations!"); // announce win
       setTimeout(resetPageToStart, 6000); // stop listening to keyboard and restore instructions/buttons
       /* noteworthy here that without the setTimeout, it's possible to start
 	      a new game while the kraken is still dissolving. this prevents a new kraken
@@ -168,9 +177,27 @@ $(document).ready(function () {
     }
 
     if (tentacleLetters >= 8) {
-      $.MessageBox('You lose. The word was "' + currentWord +'."'); // announce loss & tell player word
+      $.MessageBox('You lose. The word was "' + currentWord + '."'); // announce loss & tell player word
       resetPageToStart(); // stop listening to keyboard and restore instructions/buttons
     }
   }
 
-});
+
+// react to keyboard input
+document.onkeyup = function (event) {
+  // store keyboard input as a variable
+  let keyboardGuess = event.key;
+  // if the game's not running or the key's not a valid letter, stop here
+  if (!activeGame || !isLetter(keyboardGuess)) {
+    return;
+  };
+  // otherwise remove the letter from the keyboard & call the lettercheck function on it
+  removeLetterButton(keyboardGuess.toUpperCase());
+  checkPlayerGuess(keyboardGuess);
+}
+
+$(document).on('click', '.letterKey', function(){
+  let keyboardGuess = $(this).attr('id');
+  removeLetterButton(keyboardGuess);
+  checkPlayerGuess(keyboardGuess);
+})
