@@ -28,6 +28,7 @@ header{
     right: 0;
     top: 0;
     width: 2em;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 #currentWordDiv, #tentacleLettersDiv{
