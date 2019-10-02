@@ -23,11 +23,12 @@ header{
     text-align: center;
     bottom: 0;
 }
+
 #letterKeyAnchor{
     position: fixed;
     right: 0;
     top: 0;
-    width: 5em;
+    width: 3em;
     text-align: center;
     font-family: 'Courier New', Courier, monospace;
 }
