@@ -11,8 +11,8 @@ An ocean-themed Hangman-style game written in Javascript. The player attempts to
 ## How Do I Use It?
 Open the page, select a difficulty, and go!
 
-## Are There Problems With It?
-Button sorting on shorter screens can cause letters at the end of the alphabet to be cut off until earlier letters have been guessed.
-
 ## Who Made It?
 All local code was written solely by myself, Mars Getsoian.
+
+## Are There Bugs?
+Button sorting on shorter screens can cause letters at the end of the alphabet to be cut off until earlier letters have been guessed.
