@@ -1,5 +1,7 @@
 # Thalassophobia
 
+![Running the app](/assets/images/preview.jpg)
+
 ## What Is This Thing?
 An ocean-themed Hangman-style game written in Javascript. The player attempts to guess a mystery word, one letter at a time. Each wrong letter adds a tentacle to the Kraken; guessing the word before the Kraken awakens causes it to retreat back into the depths, while allowing it to regrow all its tentacles and consume the player results in a loss.
 
